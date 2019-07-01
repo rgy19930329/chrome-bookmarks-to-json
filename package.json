@@ -1,0 +1,22 @@
+{
+  "name": "chrome-bookmarks-to-json",
+  "version": "1.0.0",
+  "description": "chrome浏览器导出标签页转json文件",
+  "main": "exec.js",
+  "scripts": {
+    "exec": "node exec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rgy19930329/chrome-bookmarks-to-json.git"
+  },
+  "author": "ranguangyu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rgy19930329/chrome-bookmarks-to-json/issues"
+  },
+  "homepage": "https://github.com/rgy19930329/chrome-bookmarks-to-json#readme",
+  "dependencies": {
+    "node-uuid": "^1.4.8"
+  }
+}

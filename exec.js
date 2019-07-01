@@ -1,4 +1,5 @@
 var fs = require("fs");
+var uuid = require("node-uuid");
 
 fs.readFile(__dirname + "/data/bookmarks.html", "utf-8", function (err, str) {
   str = str.replace(/<!DOCTYPE NETSCAPE-Bookmark-file-1>[\r\n]*/, "")
@@ -11,10 +12,14 @@ fs.readFile(__dirname + "/data/bookmarks.html", "utf-8", function (err, str) {
            .replace(/<\/DL><p>[\r\n]*$/, "]");
   str = str.replace(/<DL><p>/g, `"children":[`).replace(/<\/DL><p>/g, "]},");
   str = str.replace(/<DT><H3[^>]+>(.*)<\/H3>/g, function(all, $1) {
-    return `{"title":"${$1}",`;
+    let key = uuid.v4();
+    if ($1 === "书签栏") {
+      key = "root";
+    }
+    return `{"title":"${$1}","key":"${key}",`;
   });
   str = str.replace(/<DT><A HREF="([^\s]*)" [^>]+>(.*)<\/A>/g, function(all, $1, $2) {
-    return `{"title":"${$2}","url":"${$1}"},`;
+    return `{"title":"${$2}","url":"${$1}","key":"${uuid.v4()}","isLeaf":true},`;
   });
   str = str.replace(/,[\s\r\n]*]/g, "]");
   str = JSON.stringify(JSON.parse(str), null, 2); // json数据格式化输出
